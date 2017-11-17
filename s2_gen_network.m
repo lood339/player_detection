@@ -40,7 +40,7 @@ net.layers{end+1} = struct('name', 'conv_b1', 'type', 'conv', ...
 
 net.layers{end+1} = struct('type', 'relu', 'leak', 0);
 
-net.layers{end+1} = struct('type', 'softmaxloss');
+%net.layers{end+1} = struct('type', 'softmaxloss');
 
 %{
 % Meta parameters
