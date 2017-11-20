@@ -1,9 +1,7 @@
-clear
+clear all
 close all
 
-%load('net_1.mat')
-load('net_1_dilated.mat')
-%load('imdb_v1.mat')
+load('net_1_dilation.mat')
 
 net.layers{end} = struct('type', 'softmax');
 
@@ -27,11 +25,15 @@ res = vl_simplenn(net, im, [], res, 'mode', 'test');
 threshold = 0.9;
 prob = res(end).x(:,:,2);
 
-%{
-scale = 1.0*size(im, 1)/size(prob, 1);
+figure; imagesc(prob);
+
+
+%scale = 1.0*size(im, 1)/size(prob, 1);
+prob = resizem(prob, [360, 640]);
 [row, col] = find(prob > threshold);
-row = scale * row;
-col = scale * col;
+
+%row = scale * row;
+%col = scale * col;
 
 figure;
 imshow(org_im);
@@ -43,7 +45,7 @@ for i = [1:length(row)]
     y = max(1, y);
     rectangle('Position', [x, y, 32, 64], 'EdgeColor', 'red');      
 end
-%}
+
 
 
 
