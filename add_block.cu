@@ -4,7 +4,9 @@
 __global__
 void add(int n, float *x, float *y)
 {
-    for(int i = 0; i<n; i++) {
+    int index = threadIdx.x;
+    int stride = blockDim.x;
+    for(int i = index; i<n; i += stride) {
         y[i] = x[i] + y[i];
     }
 }
@@ -28,7 +30,7 @@ int main(void)
 
   // Run kernel on 1M elements on the CPU
   //add(N, x, y);
-  add<<<1, 1 >>>(N, x, y);
+  add<<<1, 256 >>>(N, x, y);
   
   cudaDeviceSynchronize();
 
