@@ -6,14 +6,20 @@ load('net_1_dilation.mat')
 net.layers{end} = struct('type', 'softmax');
 
 
+player_patch_h = 32;
+player_patch_w = 14;
+im_h = 360;
+in_w = 640;
+
 im = imread('0460.jpg');
-im = imresize(im, [360, 640]);
+im = imresize(im, [im_h, in_w]);
 
 load('im_mean.mat');
 m = m;
 m = reshape(m, [1, 1, 3]);
 
-im_mean = repmat(m, [360, 640, 1]);  
+im_mean = repmat(m, [im_h, in_w, 1]);
+
 
 org_im = im;
 im = single(im);
@@ -29,21 +35,25 @@ figure; imagesc(prob);
 
 
 %scale = 1.0*size(im, 1)/size(prob, 1);
-prob = resizem(prob, [360, 640]);
-[row, col] = find(prob > threshold);
+%prob = resizem(prob, [360, 640]);
+dy = int32((size(im, 1) - size(prob, 1))/2);
+dx = int32((size(im, 2) - size(prob, 2))/2);
 
-%row = scale * row;
-%col = scale * col;
+[rows, cols] = find(prob > threshold);
+for i = [1:length(rows)]
+    rows(i) = rows(i) + dy;
+    cols(i) = cols(i) + dx;
+end
 
 figure;
 imshow(org_im);
 hold on;
-for i = [1:length(row)]
-    y = row(i) - 32/2;
-    x = col(i) - 64/2;
+for i = [1:length(rows)]
+    y = rows(i) - player_patch_h/2;
+    x = cols(i) - player_patch_w/2;
     x = max(1, x);
     y = max(1, y);
-    rectangle('Position', [x, y, 32, 64], 'EdgeColor', 'red');      
+    rectangle('Position', [x, y, player_patch_w, player_patch_h], 'EdgeColor', 'red');      
 end
 
 
@@ -51,6 +61,7 @@ end
 
 
 %{
+% test on image patches
 net.layers{end} = struct('type', 'softmax');
 
 images = imdb.images;
