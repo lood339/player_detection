@@ -4,3 +4,5 @@
 *.p -crlf -diff -merge
 *.slx -crlf -diff -merge
 *.mdl -crlf -diff -merge
+*.jpg -crlf -diff -merge
+*.png -crlf -diff -merge
