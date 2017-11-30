@@ -50,7 +50,7 @@ end
 
 %vl_simplenn_display(net);
 
-im = imread('0460.jpg');
+im = imread('./demo_image/0460.jpg');
 im = imresize(im, [360, 640]);
 
 load('./dataset/im_mean.mat');
