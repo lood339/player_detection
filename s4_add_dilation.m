@@ -1,8 +1,12 @@
 close all;
 clear all;
 
+% input: trained stage 1 network
+% output: dilated staget 1 network
+% purpose: add dilation after each pooling layer so that the network
+%          can be applied to the whole imae
 
-load('net_1.mat')
+load('./network/net_stage_1.mat')
 
 for i = 1:length(net.layers)
     l = net.layers{i};
@@ -49,7 +53,7 @@ end
 im = imread('0460.jpg');
 im = imresize(im, [360, 640]);
 
-load('im_mean.mat');
+load('./dataset/im_mean.mat');
 m = m;
 m = reshape(m, [1, 1, 3]);
 
@@ -89,25 +93,6 @@ axis equal;
 
 
 
-%{
-net.layers{end} = struct('type', 'softmax');
 
-images = imdb.images;
-N = length(images.label);
-ground_truth = images.label;
-prediction = [];
-
-for i = [1:N]   
-    res = [];
-    im = images.data(:,:,:,i);
-    res = vl_simplenn(net, im, [], res, 'mode', 'test');
-    prob = res(end).x(:);
-    [v, idx] = max(prob);
-    prediction(i) = idx;    
-end
-
-c = confusionmat(ground_truth, prediction);
-c/(sum(c(:)))
-%}
 
 
