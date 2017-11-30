@@ -42,7 +42,7 @@ net.layers{end+1} = struct('name', 'conv_b1', 'type', 'conv', ...
 net.layers{end+1} = struct('type', 'relu', 'leak', 0);
 
 
-%net.layers{end+1} = struct('type', 'softmaxloss');
+net.layers{end+1} = struct('type', 'softmaxloss');
 
 
 % Meta parameters
@@ -58,7 +58,7 @@ net = vl_simplenn_tidy(net) ;
 
 vl_simplenn_display(net);
 im = randn(32, 14, 3, 'single');
-res = vl_simplenn(net, im);
+%res = vl_simplenn(net, im);
 
 
 
