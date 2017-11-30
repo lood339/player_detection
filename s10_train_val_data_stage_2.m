@@ -1,9 +1,12 @@
 clear
 close all
 
+% generate training data for stage 2. The negative examples are from
+% false-positive of stage-2 detection
+% output: an imdb dababase
 addpath('./detection_util');
 
-load('stage_1_detection_result.mat')
+load('stage_1_detection.mat')
 annotation = annotation;
 detection_result = detection_result;
 step = step;
@@ -30,15 +33,13 @@ for i = [1:step:N]
     
     im = imread(im_name);
     [positive, negative] = sample_from_false_positive(im, tp_bbox, fp_bbox, fp_tp_ratio, iou_threshold, patch_size);
-    [negative2] = sample_negative_example(im, tp_bbox, patch_size, 3);   
+       
     if i < train_num
         train_player = cat(4, train_player, positive);
-        train_non_player = cat(4, train_non_player, negative);
-        train_non_players = cat(4, train_non_player, negative2);
+        train_non_player = cat(4, train_non_player, negative);        
     else
         validation_player = cat(4, validation_player, positive);
-        validation_non_player = cat(4, validation_non_player, negative);
-        validation_non_player = cat(4, validation_non_player, negative2);
+        validation_non_player = cat(4, validation_non_player, negative);       
     end       
 end
 

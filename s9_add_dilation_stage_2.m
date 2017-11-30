@@ -1,6 +1,8 @@
 close all;
 clear all;
 
+% add dilation in stage 2
+% this fils is not necessary in a naive implmentation (slower in testing)
 
 load('net_stage_2.mat')
 

@@ -1,7 +1,15 @@
 clear all
 close all
 
-org_net = load('./network/net_1.mat');
+% initialize network (stage 2) from stage 1
+% conv_m1 and pool_m1 are shared by stage-1 network and stage-2 network
+% input: stage 1 network (un-dilated)
+% output: initial stage 2 network
+% note: conv_m1 is not updated in stage 2 training
+
+addpath('./network');
+
+org_net = load('net_stage_1.mat');
 org_layers = org_net.net.layers;
 
 f = 1/100;

@@ -1,14 +1,21 @@
 clear all
 close all
 
-load('net_1_dilation.mat')
+% detect players using stage-1 network
+% input: annotation and stage-1 (dilated) network
+% output: detection result. It is used in second stage training
+
+addpath('./network');
+addpath('./dataset');
+
+load('net_stage_1_dilation.mat')
 net.layers{end} = struct('type', 'softmax');
 
 % detection parameters
 player_patch_size = [32, 14];
 scales = [1.0, 0.8, 0.5, 0.4, 0.3];
 player_threshold = 0.85;
-nms_threshold = 0.3;
+nms_threshold = 0.3;  % num maximum suppression
 
 % image means
 load('im_mean.mat');
@@ -44,6 +51,8 @@ for i = [1:step:N]
     end
     pause(0.1);
 end
+
+%save('stage_1_detection.mat', 'annotation', 'detection_result', 'step');
 
 
 

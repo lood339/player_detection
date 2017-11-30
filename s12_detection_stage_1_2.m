@@ -1,13 +1,19 @@
 clear all
 close all
 
-org_net = load('./network/net_1_dilation.mat');
+% player detection using stage-1 and stage-2 network
+% The stage-1 network is dilated but stage-2 network is not
+addpath('./network');
+addpath('./dataset');
+addpath('./demo_image');
+
+org_net = load('net_stage_1_dilation.mat');
 net1 = org_net.net;
 clear org_net;
 
 net1.layers{end} = struct('type', 'softmax');
 
-org_net = load('./network/net_stage_2.mat');
+org_net = load('net_stage_2.mat');
 net2 = org_net.net;
 clear org_net;
 net2.layers{end} = struct('type', 'softmax');
@@ -20,7 +26,7 @@ scales = [1.0, 0.8, 0.6, 0.4, 0.3];
 player_threshold = 0.85;
 
 % image means
-load('./dataset/im_mean.mat');
+load('im_mean.mat');
 m = m;
 m = reshape(m, [1, 1, 3]);
 
@@ -86,7 +92,6 @@ end
 player_threahold_2 = 0.7;
 index = find(player_bbox_prob(:,5) > player_threahold_2);
 player_bbox_prob = player_bbox_prob(index,:);
-
 
 selected_bbox = nms(player_bbox_prob, 0.3);
 
