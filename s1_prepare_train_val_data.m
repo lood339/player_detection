@@ -2,9 +2,11 @@ clear
 close all
 
 % prepare training, validation data from annotations.
-
-load('./dataset/annotation_1.mat')
+addpath('./dataset');
+load('annotation_1.mat')
 annotation = annot;
+load('im_mean.mat');
+im_mean = m;
 
 % data path to the folder that has images
 data_path = '/Users/jimmy/Desktop/images/bmvc17_soccer/DataSet_001/datasets/';
@@ -33,7 +35,7 @@ non_player = non_player(:,:,:,[1:num]);
 
 meta.sets = {'train', 'val'};
 meta.org_data = 'player, non-player image patches';
-meta.image_mean = [123.8271, 108.3675, 82.0878]; % @todo mean value of RGB channles
+meta.image_mean = im_mean; % @todo mean value of RGB channles
 
 images.id = [1:num*2];
 images.data = zeros(patch_size(1), patch_size(2), 3, num*2, 'single');  

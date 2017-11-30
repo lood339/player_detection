@@ -30,7 +30,7 @@ load('im_mean.mat');
 m = m;
 m = reshape(m, [1, 1, 3]);
 
-org_im = imread('0460.jpg');
+org_im = imread('0195.jpg');
 avg_prob = zeros(size(org_im, 1), size(org_im, 2));
 player_bbox_prob = []; % top-left x, y, width, height, probability
 for s_index = [1:length(scales)]
