@@ -38,7 +38,7 @@ for i = [1:step:N]
     else
         validation_player = cat(4, validation_player, positive);
         validation_non_player = cat(4, validation_non_player, negative);
-        validation_non_player = cat(4, validation_non_player, negatvie2);
+        validation_non_player = cat(4, validation_non_player, negative2);
     end       
 end
 

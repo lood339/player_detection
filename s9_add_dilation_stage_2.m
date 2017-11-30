@@ -2,7 +2,7 @@ close all;
 clear all;
 
 
-load('./network/net_stage_2.mat')
+load('net_stage_2.mat')
 
 for i = 1:length(net.layers)
     l = net.layers{i};
@@ -50,7 +50,7 @@ end
 
 %vl_simplenn_display(net);
 
-im = imread('0195.jpg');
+im = imread('0460.jpg');
 im = imresize(im, [360, 640]);
 
 load('./dataset/im_mean.mat');

@@ -1,8 +1,8 @@
 clear
 close all
 
-load('net_stage_2_raw.mat')
-load('imdb_v2.mat')
+load('net_stage_2_init_from_net_1.mat')
+load('imdb_v3_stage_2.mat')
 
 net.meta.trainOpts.batchSize = 20;
 net.meta.trainOpts.numEpochs = 20;

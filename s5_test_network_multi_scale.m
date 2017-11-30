@@ -1,7 +1,7 @@
 clear all
 close all
 
-load('net_1_dilation.mat')
+load('net_2_dilation.mat')
 
 net.layers{end} = struct('type', 'softmax');
 
@@ -10,10 +10,10 @@ player_patch_h = 32;
 player_patch_w = 14;
 
 scales = [1.0, 0.8, 0.5, 0.4, 0.3];
-player_threshold = 0.85;
+player_threshold = 0.4;
 
 % image means
-load('im_mean.mat');
+load('./dataset/im_mean.mat');
 m = m;
 m = reshape(m, [1, 1, 3]);
 
