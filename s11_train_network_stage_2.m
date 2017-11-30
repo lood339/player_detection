@@ -1,6 +1,8 @@
 clear
 close all
 
+% train classify network
+% input: raw network and training data
 load('net_stage_2_init_from_net_1.mat')
 load('imdb_v3_stage_2.mat')
 
